@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<center>
+  <br>
+<div class="card" style="width: 18rem;" display:inline-block>
+    <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{ product.name }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{ product.price }} تومان</h6>
+      <br>
+      <p class="card-text">{{ product.description }}</p>
+      <small class="text-muted">{{ product.created }}</small><br><br>
+
+      <form action="{% url 'orders:cart_add' product.id %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <br>
+        <input type="submit" value="اضافه کردن به سبدخرید">
+      </form>
+      
+
+    </div>
+  </div>
+</center>
+{% endblock %}
+{% block title %} {{ product.name }} {% endblock %}

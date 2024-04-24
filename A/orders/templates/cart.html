@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">نام محصول</th>
+        <th scope="col">تعداد محصول</th>
+        <th scope="col">قیمت</th>
+        <th scope="col">مجموع قیمت</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+    {% for item in cart %}
+    <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ item.product }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.price }} تومان</td>
+        <td>{{ item.total_price }} تومان</td>
+        <td><a href="{% url 'orders:cart_remove' item.product.id %}">حذف</a></td>
+      </tr>
+    {% endfor %}  
+    <tr>
+      <td>مجموع کل</td>
+      <td colspan="3"></td>
+      <td>{{ cart.get_total_price }}  تومان </td>
+    </tr>
+    </tbody>
+  </table>
+<a href="{% url 'orders:order_create' %}" class="btn btn-dark">پرداخت</a>
+{% endblock %}
+{% block title %} Cart {% endblock %}
